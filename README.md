@@ -25,7 +25,7 @@ ros2 launch astro rsp.launch.py
 
 ```bash
 cd src/lab4_aruco_exercise
-ros2 launch astro_navigation localization.launch.py map:=maps/aruco_mapa.yaml
+ros2 launch astro_navigation localization.launch.py map:=maps/aruco_mapa_lab4.yaml
 ```
 
 ### 3. Open RViz
