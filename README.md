@@ -8,7 +8,7 @@ ROS2 node that detects ArUco markers via TF2 and records their confirmed positio
 mkdir -p /astro_ws/src
 cd astro_ws/src
 git clone https://github.com/CRTA-Lab/ASTRO.git
-git clone https://github.com/CRTA-Lab/lab2_aruco_solution.git
+git clone https://github.com/CRTA-Lab/lab4_aruco_exercise.git
 cd ..
 colcon build --symlink-install
 ```
