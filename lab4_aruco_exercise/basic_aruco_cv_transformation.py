@@ -53,12 +53,16 @@ class BasicArucoCvTransformation(Node):
 
     def __init__(self):
         super().__init__('basic_aruco_cv_transformation')
-        self.bridge = CvBridge()
+        ###CODE HERE ###: initialize the CvBridge
+
+        ###
         self.camera_matrix = None
         self.dist_coeffs = None
 
         self.declare_parameter('dictionary', 250)
-        self.declare_parameter('marker_size', 0.1)  # metres
+        ###CODE HERE ###: declare a parameter for the marker size in metres, with a default value
+        
+        ###
 
         dict_size = self.get_parameter('dictionary').get_parameter_value().integer_value
         if dict_size not in ARUCO_DICTS:
@@ -135,23 +139,24 @@ class BasicArucoCvTransformation(Node):
 
             x, y, z, w = rvec_to_quaternion(rvecs[i])
 
+            ### CODE HERE ###: create a geometry_msgs/TransformStamped message for the marker pose, and broadcast it using self.tf_broadcaster
             t = TransformStamped()
-            t.header.stamp = stamp
-            t.header.frame_id = self.camera_frame
+            t.header.stamp = 
+            t.header.frame_id = 
             t.child_frame_id = f'aruco_{marker_id}'
             t.transform.translation.x = float(tvecs[i][0][0])
             t.transform.translation.y = float(tvecs[i][0][1])
             t.transform.translation.z = float(tvecs[i][0][2])
-            t.transform.rotation.x = x
-            t.transform.rotation.y = y
-            t.transform.rotation.z = z
-            t.transform.rotation.w = w
+            t.transform.rotation.x = 
+            t.transform.rotation.y = 
+            t.transform.rotation.z = 
+            t.transform.rotation.w = 
+            
+            ###
+        ###CODE HERE ###: convert the annotated image to a CompressedImage message and publish it using self.publisher
 
-            self.tf_broadcaster.sendTransform(t)
 
-        out_msg = self.bridge.cv2_to_compressed_imgmsg(img)
-        out_msg.header = msg.header
-        self.publisher.publish(out_msg)
+        ###
 
 
 def main(args=None):

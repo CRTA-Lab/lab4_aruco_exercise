@@ -27,16 +27,19 @@ class ArucoMapMarker(Node):
         super().__init__('aruco_map_marker')
 
         self.tf_buffer = tf2_ros.Buffer()
-        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+        ### CODE HERE ###: create the TF listener using self.tf_buffer and self as the node
 
+        ###
+        
         self.marker_pub = self.create_publisher(MarkerArray, '/aruco_map_markers', 10)
 
         self.states = {mid: 'waiting' for mid in MARKER_IDS}
         self.readings = {mid: [] for mid in MARKER_IDS}
         self.confirmed_poses = {}
 
-        self.create_timer(0.1, self._update)
-
+        ### CODE HERE ###: create a timer to call self._update every 0.1 seconds
+       
+        ###
     def _lookup(self, target, source):
         try:
             return self.tf_buffer.lookup_transform(
@@ -55,11 +58,10 @@ class ArucoMapMarker(Node):
             return None
 
     def _dist(self, t1, t2):
-        # 2D distance in xy — base_footprint z=0 but marker z varies with camera height
-        dx = t1.transform.translation.x - t2.transform.translation.x
-        dy = t1.transform.translation.y - t2.transform.translation.y
-        return math.sqrt(dx * dx + dy * dy)
-
+        ### CODE HERE ###: compute the 2D distance in xy between two TF transforms t1 and t2
+        
+        ###
+        
     def _update(self):
         robot_tf = self._lookup(MAP_FRAME, ROBOT_FRAME)
         if robot_tf is None:
@@ -74,7 +76,7 @@ class ArucoMapMarker(Node):
                 continue
 
             dist = self._dist(robot_tf, marker_tf)
-
+            
             if dist < PROXIMITY_THRESHOLD:
                 if self.states[mid] == 'waiting':
                     self.states[mid] = 'collecting'
@@ -130,7 +132,9 @@ class ArucoMapMarker(Node):
         stamp = self.get_clock().now().to_msg()
 
         for mid, pose in self.confirmed_poses.items():
-            x, y, z, qx, qy, qz, qw = pose
+            ### CODE HERE ###: create a visualization_msgs/Marker for the marker position and orientation, and add it to the array
+            
+            ###
             r, g, b = MARKER_COLORS.get(mid, (1.0, 1.0, 0.0))
 
             cube = Marker()
@@ -176,8 +180,9 @@ class ArucoMapMarker(Node):
             label.text = f'aruco_{mid}'
             label.lifetime.sec = 0
             array.markers.append(label)
-
-        self.marker_pub.publish(array)
+        ###CODE HERE ###: publish the MarkerArray message
+        
+        ###
 
 
 def main(args=None):
