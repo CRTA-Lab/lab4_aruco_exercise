@@ -24,6 +24,7 @@ ros2 launch astro rsp.launch.py
 ### 2. Start localization
 
 ```bash
+cd src/lab4_aruco_exercise
 ros2 launch astro_navigation localization.launch.py map:=maps/aruco_mapa.yaml
 ```
 
