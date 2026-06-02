@@ -34,6 +34,7 @@ ros2 launch astro_navigation localization.launch.py map:=maps/aruco_mapa_lab4.ya
 ros2 run rviz2 rviz2 -d ~/astro_ws/src/lab4_aruco_exercise/config/nav2_default_view.rviz
 ```
 
+Don't forget to give _2D Pose Estimate_ in _rviz2_
 ### 4. Run the ArUco TF broadcaster
 
 ```bash
